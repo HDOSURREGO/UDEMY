@@ -9,11 +9,11 @@ app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/index.html');
 });
 
-app.post('/bmicalculator', function (req, res) {
-	const weight = req.body.weight;
-	const height = req.body.height;
+app.post('/bmiresult', function (req, res) {
+	const weight = Number(req.body.weight);
+	const height = Number(req.body.height);
 
-	const bmi = weight + height;
+	const bmi = weight / (height * height);
 
 	res.send('Your BMI is ' + bmi);
 });
