@@ -32,18 +32,18 @@ app.post("/", function (req, res) {
 
 	const jsonData = JSON.stringify(data);
 
-	const url = "https://us18.api.mailchimp.com/3.0/lists/56d3829db6";
+	const url = "https://us18.api.mailchimp.com/3.0/lists/LIST_ID";
 
 	const options = {
 		method: "POST",
-		auth: "xxxxxxx:39c2b321697200454d437e34dfb9ff78-us18",
+		auth: "hdosurrego:API_KEY",
 	};
 
 	const request = https.request(url, options, function (response) {
 		if (response.statusCode === 200) {
-			res.send("Yes! You are now subscribed to our Newsletter!");
+			res.sendFile(__dirname + "/success.html");
 		} else {
-			res.send("There was an error, please try again!");
+			res.sendFile(__dirname + "/failure.html");
 		}
 		response.on("data", function (data) {
 			console.log(JSON.parse(data));
@@ -53,6 +53,6 @@ app.post("/", function (req, res) {
 	request.end();
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT, function () {
 	console.log("Server running on port 3000");
 });
